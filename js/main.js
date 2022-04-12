@@ -66,7 +66,7 @@ $(document).ready(function() {
     });
 
     //Customizing mailer plugin
-    $('form').submit(function(e) {
+    /* $('form').submit(function(e) {
         e.preventDefault(); //switched off standard behavior of the browser
 
         $.ajax({
@@ -79,5 +79,36 @@ $(document).ready(function() {
             $('form').trigger('reset'); //Resets all forms
         });
         return false;
+    }); */
+
+    /* Modal */
+    const modal = document.querySelector('.modal'),
+        inputs = document.querySelectorAll('form input, textarea');
+
+    function showModal() {
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+    }
+
+    function closeModal() {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+    }
+
+    inputs.forEach(item => {
+        item.addEventListener('change', showModal);
     });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal || e.target.getAttribute('data-close') == '') {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+
 });
